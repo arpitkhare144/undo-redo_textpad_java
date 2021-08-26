@@ -44,15 +44,19 @@ class Stack
 		if (isEmpty())
 		{
 			System.out.println("UnderFlow\nProgram Terminated");
-			System.exit(1);
+			//System.exit(1);
 		}
 
 		System.out.println("Removing " + peek());
 
 		// decrease stack size by 1 and (optionally) return the popped element
-
-		s.carr=(int)arrc[top--];
-		return ((String)arr[top--]);
+                if(top>0)
+                {
+                    s.carr=(int)arrc[top--];
+                    return ((String)arr[top--]);
+                }
+                return "";
+		
 	}
 
 	// Utility function to return top element in a stack
@@ -61,9 +65,9 @@ class Stack
 		if (!isEmpty())
 			return arr[top];
 		else
-			System.exit(1);
+			//System.exit(1);
 
-		return (" ");
+		return ("");
 	}
 
 	// Utility function to return the size of the stack
@@ -101,7 +105,7 @@ public class UndoRedo extends JFrame implements KeyListener,ActionListener{
 
   protected JButton undoButton = new JButton("Undo");
 
-  protected JButton redoButton = new JButton("delete");
+  protected JButton redoButton = new JButton("Redo");
 
   Stack sk=new Stack(1000);
 
@@ -300,6 +304,40 @@ public class UndoRedo extends JFrame implements KeyListener,ActionListener{
 
 
  		}
+        if((e.getKeyCode() == KeyEvent.VK_Y) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0))
+     	{
+            try {
+
+
+ 		          
+ 		          //s=" ";
+ 		          int n2=textArea.getCaretPosition();
+ 		          char st=s.charAt(n2-1);
+ 				  String stack=st+"";
+ 				  sk.push(stack,n2);
+ 				  String p1=s.substring(0,n2-1);
+ 				  int len=s.length();
+ 				  if(len>n2)
+ 				  {
+ 				  	String p2=s.substring(n2,len);
+ 				  	String p3=p1.concat(p2);
+ 				  	textArea.setText(p3);
+ 			  	  }
+ 			  	  else
+ 			  	  {
+ 					  textArea.setText(p1);
+ 			      }
+
+ 		          //String n2=s.get();
+
+
+ 		    }
+ 		        catch (Exception cre)
+ 		        {
+ 		          cre.printStackTrace();
+         		}
+
+        }
 
        }
        public void keyReleased(KeyEvent e) {
@@ -327,10 +365,5 @@ public class UndoRedo extends JFrame implements KeyListener,ActionListener{
 
 
 }
-
-
-
-
-
 
 
